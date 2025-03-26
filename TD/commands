@@ -1,0 +1,18 @@
+#!/bin/bash
+ppng2pan environnement.png environnement.pan #construire un pan a partir d'un png
+
+pimc2img 0 environnement.pan rouge.pan #couleur rouge en grey colorspace
+pimc2img 1 environnement.pan vert.pan #couleur verte en grey colorspace
+pimc2img 2 environnement.pan bleu.pan #couleur bleue en grey colorspace
+
+pmultcst 0 rouge.pan noir.pan # pour avoir une image noire
+
+#pour avoir les images avec l'isolation des couleurs
+pimgs2imc rouge.pan noir.pan noir.pan rouge.pan
+pimgs2imc noir.pan vert.pan noir.pan vert.pan
+pimgs2imc noir.pan noir.pan bleu.pan bleu.pan
+
+#On reconstruit l'image couleur à partir des isolées
+por rouge.pan vert.pan rebuilt_environnement.pan
+por rebuilt_environnement.pan bleu.pan rebuilt_environnement.pan
+
